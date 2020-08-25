@@ -1,18 +1,15 @@
 package tk.lokiShelter.manage.config.handle;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.http.MediaType;
 import org.springframework.security.authentication.*;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import tk.lokiShelter.manage.util.JwtTokenUtil;
-import tk.lokiShelter.manage.util.ResponseUtil;
+import tk.lokiShelter.manage.api.ResponseBean;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -21,8 +18,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.security.Principal;
-import java.util.Collection;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -85,7 +80,7 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
         Map<String, String> tokenMap = new HashMap<>();
         tokenMap.put("token", token);
         tokenMap.put("tokenHead", "Bearer ");
-        String s = new ObjectMapper().writeValueAsString(ResponseUtil.ok(tokenMap));
+        String s = new ObjectMapper().writeValueAsString(ResponseBean.ok(tokenMap));
         out.write(s);
         out.flush();
         out.close();
@@ -96,15 +91,15 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
         response.setContentType("application/json;charset=utf-8");
         PrintWriter out = response.getWriter();
         if (failed instanceof LockedException) {
-            out.write(new ObjectMapper().writeValueAsString(ResponseUtil.fail(ADMIN_INVALID_ACCOUNT, "账户被锁定，请联系管理员!")));
+            out.write(new ObjectMapper().writeValueAsString(ResponseBean.fail(ADMIN_INVALID_ACCOUNT, "账户被锁定，请联系管理员!")));
         } else if (failed instanceof CredentialsExpiredException) {
-            out.write(new ObjectMapper().writeValueAsString(ResponseUtil.fail(ADMIN_INVALID_ACCOUNT, "密码过期，请联系管理员!")));
+            out.write(new ObjectMapper().writeValueAsString(ResponseBean.fail(ADMIN_INVALID_ACCOUNT, "密码过期，请联系管理员!")));
         } else if (failed instanceof AccountExpiredException) {
-            out.write(new ObjectMapper().writeValueAsString(ResponseUtil.fail(ADMIN_INVALID_ACCOUNT, "账户过期，请联系管理员!")));
+            out.write(new ObjectMapper().writeValueAsString(ResponseBean.fail(ADMIN_INVALID_ACCOUNT, "账户过期，请联系管理员!")));
         } else if (failed instanceof DisabledException) {
-            out.write(new ObjectMapper().writeValueAsString(ResponseUtil.fail(ADMIN_INVALID_ACCOUNT, "账户被禁用，请联系管理员!")));
+            out.write(new ObjectMapper().writeValueAsString(ResponseBean.fail(ADMIN_INVALID_ACCOUNT, "账户被禁用，请联系管理员!")));
         } else if (failed instanceof BadCredentialsException) {
-            out.write(new ObjectMapper().writeValueAsString(ResponseUtil.fail(ADMIN_INVALID_ACCOUNT, "用户帐号或密码不正确")));
+            out.write(new ObjectMapper().writeValueAsString(ResponseBean.fail(ADMIN_INVALID_ACCOUNT, "用户帐号或密码不正确")));
         }
 
         out.flush();

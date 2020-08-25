@@ -11,9 +11,12 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 //import tk.lokiShelter.manage.config.handle.LoginFilter;
+import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import tk.lokiShelter.manage.config.handle.JwtFilter;
+import tk.lokiShelter.manage.config.handle.JwtSecurityFilter;
 import tk.lokiShelter.manage.config.handle.LoginFilter;
+import tk.lokiShelter.manage.config.handle.RestfulAccessDeniedHandler;
 import tk.lokiShelter.manage.config.service.UserDetailsServiceImpl;
 import tk.lokiShelter.manage.config.temple.IgnoreUrlsBean;
 
@@ -45,11 +48,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public JwtFilter jwtFilter() {
         return new JwtFilter();
     }
+    @Bean
+    public JwtSecurityFilter jwtSecurityFilter() {
+        return new JwtSecurityFilter();
+    }
 
     //<security : authentication-manager>
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService()).passwordEncoder(passwordEncoder());
+    }
+    @Bean
+    public RestfulAccessDeniedHandler restfulAccessDeniedHandler() {
+        return new RestfulAccessDeniedHandler();
     }
     //<security:http>
     @Override
@@ -66,9 +77,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
+                .exceptionHandling()
+                .accessDeniedHandler(restfulAccessDeniedHandler())
+                .and()
                 .addFilterAt(loginFilter(),UsernamePasswordAuthenticationFilter.class)
                 // 自定义权限拦截器JWT过滤器
                 .addFilterBefore(jwtFilter(), UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(jwtSecurityFilter(), FilterSecurityInterceptor.class)
+
+
                 .logout()
                 .logoutUrl("/admin/logout")
                 .logoutSuccessUrl("/");

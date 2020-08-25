@@ -71,11 +71,24 @@
 <!--               enableCountByExample="false" enableUpdateByExample="false"-->
 <!--               enableDeleteByExample="false" enableSelectByExample="true"-->
 <!--               selectByExampleQueryId="false"></table>-->
-            <table tableName="ums_menu" domainObjectName="LsMenu"
-                   enableCountByExample="false" enableUpdateByExample="false"
-                   enableDeleteByExample="false" enableSelectByExample="true"
-                   selectByExampleQueryId="false"></table>
+<!--            <table tableName="ums_menu" domainObjectName="LsMenu"-->
+<!--                   enableCountByExample="false" enableUpdateByExample="false"-->
+<!--                   enableDeleteByExample="false" enableSelectByExample="true"-->
+<!--                   selectByExampleQueryId="false"></table>-->
 <!--            <table tableName="ums_role_menu_relation" domainObjectName="LsRoleMnuRelation"-->
+<!--                   enableCountByExample="false" enableUpdateByExample="false"-->
+<!--                   enableDeleteByExample="false" enableSelectByExample="true"-->
+<!--                   selectByExampleQueryId="false"></table>-->
+            <table tableName="pms_product" domainObjectName="LsProduct"
+                   enableCountByExample="false" enableUpdateByExample="true"
+                   enableDeleteByExample="false" enableSelectByExample="true"
+                   selectByExampleQueryId="false">
+                <columnOverride column="description" javaType="java.lang.String" jdbcType="VARCHAR" />
+                <columnOverride column="detail_Desc" javaType="java.lang.String" jdbcType="VARCHAR" />
+                <columnOverride column="detail_Html" javaType="java.lang.String" jdbcType="VARCHAR" />
+                <columnOverride column="detail_Mobile_Html" javaType="java.lang.String" jdbcType="VARCHAR" />
+            </table>
+<!--            <table tableName="pms_brand" domainObjectName="LsBrand"-->
 <!--                   enableCountByExample="false" enableUpdateByExample="false"-->
 <!--                   enableDeleteByExample="false" enableSelectByExample="true"-->
 <!--                   selectByExampleQueryId="false"></table>-->

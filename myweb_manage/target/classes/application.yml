@@ -6,6 +6,13 @@ spring:
 server:
   port: 80
 
+pagehelper:
+  reasonable: true
+  helper-dialect: mysql
+  support-methods-arguments: true
+  params: count=countsql
+
+
 secure:
   ignored:
     urls: #安全路径白名单

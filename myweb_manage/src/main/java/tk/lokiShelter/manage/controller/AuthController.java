@@ -1,4 +1,4 @@
-package tk.lokiShelter.manage.web;
+package tk.lokiShelter.manage.controller;
 
 
 import cn.hutool.core.collection.CollUtil;
@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import tk.lokiShelter.db.domain.LsAdmin;
 
 import tk.lokiShelter.db.domain.LsRole;
-import tk.lokiShelter.manage.util.ResponseUtil;
+import tk.lokiShelter.manage.api.ResponseBean;
 import tk.lokiShelter.server.service.AdminService;
 import tk.lokiShelter.server.service.RoleService;
 
@@ -29,9 +29,9 @@ public class AuthController {
 
     @RequestMapping(value = "/info", method = RequestMethod.GET)
     @ResponseBody
-    public ResponseUtil getAdminInfo(Principal principal) {
+    public ResponseBean getAdminInfo(Principal principal) {
         if(principal==null){
-            return ResponseUtil.unauthorized(null);
+            return ResponseBean.unauthorized(null);
         }
         String username = principal.getName();
         LsAdmin lsAdmin = adminService.selectByUsername(username);
@@ -44,7 +44,7 @@ public class AuthController {
             List<String> roles = roleList.stream().map(LsRole::getName).collect(Collectors.toList());
             data.put("roles",roles);
         }
-        return ResponseUtil.success(data);
+        return ResponseBean.success(data);
     }
 
 //    @RequestMapping(value = "/logout", method = RequestMethod.POST)
