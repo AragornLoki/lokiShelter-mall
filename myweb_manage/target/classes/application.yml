@@ -1,0 +1,18 @@
+spring:
+  profiles:
+    active: db, secure
+  messages:
+    encoding: UTF-8
+server:
+  port: 1327
+
+pagehelper:
+  reasonable: true
+  helper-dialect: mysql
+  support-methods-arguments: true
+  params: count=countsql
+
+#uploadDir: E:\ss\JAVA\work\
+uploadDir: /usr/MyWeb/public/img/
+URL: https://lokishelter.tk/img/
+

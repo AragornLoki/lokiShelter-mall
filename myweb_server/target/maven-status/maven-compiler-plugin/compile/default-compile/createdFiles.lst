@@ -1,0 +1,14 @@
+tk\lokiShelter\server\service\BrandService.class
+tk\lokiShelter\server\dao\AdminDao.class
+tk\lokiShelter\server\service\AdminService.class
+tk\lokiShelter\server\service\ProductService.class
+tk\lokiShelter\server\service\impl\AdminServiceImpl.class
+tk\lokiShelter\server\service\RoleService.class
+tk\lokiShelter\server\Application.class
+tk\lokiShelter\server\service\impl\RoleSeviceImpl.class
+tk\lokiShelter\server\dao\RoleDao.class
+tk\lokiShelter\server\service\impl\PermissionServiceImpl.class
+tk\lokiShelter\server\service\impl\ProductServiceImpl.class
+tk\lokiShelter\server\service\PermissionService.class
+tk\lokiShelter\server\dto\ProductQueryBean.class
+tk\lokiShelter\server\service\impl\BrandServiceImpl.class
